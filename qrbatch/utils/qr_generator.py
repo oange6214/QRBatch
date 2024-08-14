@@ -5,18 +5,17 @@ import logging
 import configparser
 from typing import List, Optional
 import re
-
-VERSION = "1.0.0"
+from qrbatch import __version__
 
 class QRCodeGenerator:
     def __init__(self, excel_file: str, output_folder: str, config_file: str):
-        self.version = __version__
         self.excel_file = excel_file
         self.output_folder = output_folder
         self.config = self.read_config(config_file)
         self.sheets = self.parse_config_list('Sheets', 'process')
         self.include_columns = self.parse_config_list('Columns', 'include')
         self.exclude_columns = self.parse_config_list('Columns', 'exclude')
+        self.version = __version__
 
     def read_config(self, config_file: str) -> configparser.ConfigParser:
         config = configparser.ConfigParser()
@@ -26,7 +25,6 @@ class QRCodeGenerator:
     def parse_config_list(self, section: str, option: str) -> List[str]:
         if self.config.has_option(section, option):
             value = self.config.get(section, option)
-            # 使用 \\n 來表示實際的換行符
             return [item.strip().replace('\\n', '\n') for item in value.split('\n') if item.strip()]
         return []
 
@@ -40,7 +38,6 @@ class QRCodeGenerator:
         return df
 
     def column_matches(self, pattern: str, column: str) -> bool:
-        # 使用更靈活的匹配方法，允許部分匹配和忽略換行符
         return pattern.replace('\n', '').lower() in column.replace('\n', '').lower()
 
     def format_data(self, row: pd.Series) -> str:
@@ -48,9 +45,7 @@ class QRCodeGenerator:
         formatted_lines = []
         for column in row.index:
             value = str(row[column])
-            # 替換單元格內的換行為 ' / '
             value = value.replace('\n', ' / ')
-            # 替換列名中的換行為空格
             column_name = column.replace('\n', ' ')
             formatted_lines.append(f"{column_name.strip()}: {value}")
         return "\n".join(formatted_lines).strip()
