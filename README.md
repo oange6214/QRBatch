@@ -85,7 +85,7 @@ python run.py
 
 ### 指定資料來源：
 ```
-python run.py resources/data.xlsx
+python run.py -d resources/data.xlsx
 ```
 
 ### 指定自定義設定檔：
@@ -101,7 +101,7 @@ python run.py -o qr_codes
 
 ### 完整範例（包含所有選項）：
 ```
-python run.py resources/data.xlsx -c config/custom_config.ini -o qr_codes
+python run.py -d resources/data.xlsx -c config/custom_config.ini -o qr_codes
 ```
 這個命令將使用自定義的 Excel 文件和配置文件，並將輸出保存到指定的 `qr_codes` 目錄。
 
