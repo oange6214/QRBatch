@@ -46,6 +46,11 @@ your_project/
 `custom_config.ini` 文件。範例內容如下：
 
 ```ini
+[Header]
+# 要抓取得 Header 在第幾個列？（第一列是 0, 第二列是 1，依此列推...）
+row = 
+    1
+
 [Sheets]
 process = 
     Sheet1
@@ -70,8 +75,6 @@ include =
 exclude = 
     圖片
 ```
-
-[中間的部分保持不變]
 
 ## 使用方法
 
@@ -127,5 +130,3 @@ your_project/
     │   └── ...
     └── ...
 ```
-
-[注意事項部分保持不變]

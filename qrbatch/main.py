@@ -2,6 +2,7 @@ import os
 import sys
 import logging
 import argparse
+from qrbatch import __version__
 
 if __name__ == "__main__":
     sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -9,12 +10,11 @@ if __name__ == "__main__":
 else:
     from qrbatch.utils.qr_generator import QRCodeGenerator
 
-VERSION = "1.0.0"
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 def main():
-    parser = argparse.ArgumentParser(description=f"QRBatch v{VERSION} - Generate QR codes from Excel data")
+    parser = argparse.ArgumentParser(description=f"QRBatch v{__version__} - Generate QR codes from Excel data")
     parser.add_argument("-d", "--data", default="resources/data.xlsx", help="Path to the input Excel file")
     parser.add_argument("-o", "--output", default="qr_codes", help="Output folder for QR codes")
     parser.add_argument("-c", "--config", default=os.path.join("config", "custom_config.ini"), help="Path to the configuration file")

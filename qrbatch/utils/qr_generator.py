@@ -15,6 +15,7 @@ class QRCodeGenerator:
         self.sheets = self.parse_config_list('Sheets', 'process')
         self.include_columns = self.parse_config_list('Columns', 'include')
         self.exclude_columns = self.parse_config_list('Columns', 'exclude')
+        self.row_header = self.parse_config_list('Header', 'row')
         self.version = __version__
 
     def read_config(self, config_file: str) -> configparser.ConfigParser:
@@ -70,13 +71,19 @@ class QRCodeGenerator:
         try:
             xls = pd.ExcelFile(self.excel_file)
             sheets_to_process = set(self.sheets) & set(xls.sheet_names)
+            
+            try:
+                row_header = int(self.row_header[0]) if self.row_header else None
+            except ValueError:
+                logging.error(f"Invalid row header value: {self.row_header}")
+                raise ValueError(f"Invalid row header: {self.row_header} is not an integer.")
 
             if not os.path.exists(self.output_folder):
                 os.makedirs(self.output_folder)
 
             for sheet_name in sheets_to_process:
                 try:
-                    df = pd.read_excel(xls, sheet_name=sheet_name)
+                    df = pd.read_excel(xls, sheet_name=sheet_name, header=row_header)
                     logging.info(f"Columns in sheet '{sheet_name}': {df.columns.tolist()}")
                     df = self.filter_columns(df)
                     logging.info(f"Columns after filtering: {df.columns.tolist()}")
@@ -94,6 +101,8 @@ class QRCodeGenerator:
 
                 except Exception as e:
                     logging.error(f"Error processing sheet '{sheet_name}': {str(e)}")
+                    raise
 
         except Exception as e:
             logging.error(f"Error processing Excel file: {str(e)}")
+            raise
