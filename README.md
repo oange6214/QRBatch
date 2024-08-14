@@ -29,6 +29,48 @@ your_project/
 
 ```
 
+## 前置需求
+
+1. 安裝 Python
+   請依照以下指南安裝 Python：
+   https://medium.com/@benson890720/python練習筆記-安裝python-8f423dd77c68
+
+2. 安裝所需套件
+   執行以下命令一次性安裝所有必要的套件：
+   ```
+   pip install -r requirements.txt
+   ```
+
+## 設定
+
+`custom_config.ini` 文件。範例內容如下：
+
+```ini
+[Sheets]
+process = 
+    Sheet1
+    Sheet2
+    Sheet3
+
+[Columns]
+# 使用 include 來指定要包含的列。如果為空，則包含所有列。
+# 每行一個列名
+include = 
+    項目編號
+    購買日期
+    型號/規格/名稱及說明
+    單位
+    數量
+    存放位置
+    財產編號\n設備編號
+    備註
+
+# 使用 exclude 來指定要排除的列。只有在 include 為空時才會生效。
+# 每行一個列名
+exclude = 
+    圖片
+```
+
 [中間的部分保持不變]
 
 ## 使用方法
