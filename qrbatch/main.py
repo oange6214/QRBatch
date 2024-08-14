@@ -1,7 +1,13 @@
 import os
+import sys
 import logging
 import argparse
-from utils.qr_generator import QRCodeGenerator
+
+if __name__ == "__main__":
+    sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+    from qrbatch.utils.qr_generator import QRCodeGenerator
+else:
+    from qrbatch.utils.qr_generator import QRCodeGenerator
 
 VERSION = "1.0.0"
 
