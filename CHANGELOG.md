@@ -5,7 +5,29 @@
 本文件格式基於 [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)，
 並且本項目遵循 [語義化版本](https://semver.org/spec/v2.0.0.html)。
 
-## [未發布]
+
+## [v1.0.5]
+
+### 新增
+- Debugger file launch.json.
+- Row value validation is nan will not process.
+
+### 變更
+- Edit custom_config.ini, excel column name.
+- 拆分 qr_generator.py process_excel 函數，建立了 sheet and row
+
+## [v1.0.4]
+
+### 新增
+- Header row setting.
+
+### 變更
+- version number.
+
+### 修復
+- Fix Error can raise.
+
+## [1.0.3]
 
 ### 修復
 - 修改 README.md
