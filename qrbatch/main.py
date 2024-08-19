@@ -1,15 +1,13 @@
 import os
-import sys
 import logging
 import argparse
 from qrbatch import __version__
-
-if __name__ == "__main__":
-    sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-    from qrbatch.utils.qr_generator import QRCodeGenerator
-else:
-    from qrbatch.utils.qr_generator import QRCodeGenerator
-
+from qrbatch.exceptions import ConfigurationError, QRBatchProcessingError
+from qrbatch.qr_batch_processor import QRCodeBatchProcessor
+from qrbatch.utils.config_handler import ConfigHandler
+from qrbatch.utils.data_processor import DataProcessor
+from qrbatch.utils.file_handler import FileHandler
+from qrbatch.utils.qr_generator import QRCodeGenerator
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
@@ -22,13 +20,29 @@ def main():
     args = parser.parse_args()
     
     try:
-        generator = QRCodeGenerator(args.data, args.output, args.config)
+        config_handler = ConfigHandler(args.config)
+        file_handler = FileHandler()
+        data_processor = DataProcessor()
+        qr_generator = QRCodeGenerator()
+        
+        generator = QRCodeBatchProcessor(
+            args.data, 
+            args.output, 
+            config_handler,
+            file_handler,
+            data_processor,
+            qr_generator
+        )
         generator.process_excel()
         logging.info(f"QR codes generated successfully. Output folder: {args.output}")
     except FileNotFoundError as e:
         logging.error(f"File not found: {e}")
+    except ConfigurationError as e:
+        logging.error(f"Configuration error: {e}")
+    except QRBatchProcessingError as e:
+        logging.error(f"QR batch processing error: {e}")
     except Exception as e:
-        logging.error(f"An error occurred: {e}")
+        logging.error(f"An unexpected error occurred: {e}")
 
 if __name__ == "__main__":
     main()
