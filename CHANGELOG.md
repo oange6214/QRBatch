@@ -5,6 +5,15 @@
 本文件格式基於 [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)，
 並且本項目遵循 [語義化版本](https://semver.org/spec/v2.0.0.html)。
 
+## [未發佈]
+
+### 新增
+- Add exceptions.
+- Add DI design. 
+
+### 變更
+- Refactor qr_batch_processor.py.
+
 
 ## [v1.0.5]
 

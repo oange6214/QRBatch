@@ -12,8 +12,13 @@ your_project/
 ├── qrbatch/
 │   ├── utils/
 │   │   ├── __init__.py
+│   │   ├── config_handler.py
+│   │   ├── data_processor.py
+│   │   ├── file_handler.py
 │   │   └── qr_generator.py
 │   ├── __init__.py
+│   ├── exceptions.py
+│   ├── qr_batch_processor.py
 │   └── main.py
 │
 ├── resources/
