@@ -43,6 +43,7 @@ target/
 # qr code output
 qr_codes/
 local/
+sampleData/
 
 # Virtual env
 .venv/
