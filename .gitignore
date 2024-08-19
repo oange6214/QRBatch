@@ -39,3 +39,10 @@ pip-delete-this-directory.txt
 # PyBuilder
 .pybuilder/
 target/
+
+# qr code output
+qr_codes/
+local/
+
+# Virtual env
+.venv/
