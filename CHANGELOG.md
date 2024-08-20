@@ -5,7 +5,13 @@
 本文件格式基於 [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)，
 並且本項目遵循 [語義化版本](https://semver.org/spec/v2.0.0.html)。
 
-## [未發佈]
+## [v1.0.7]
+
+### 變更
+- 編輯 clean_filename function Remove \n 符號
+- 編輯 _process_row function File name 組成為 {項目編號}_{財產編號}.png
+
+## [v1.0.6]
 
 ### 新增
 - Add exceptions.
