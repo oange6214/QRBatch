@@ -29,7 +29,7 @@ class QRCodeBatchProcessor:
         self.sheets = self.config_handler.parse_config_list('Sheets', 'process')
         self.include_columns = self.config_handler.parse_config_list('Columns', 'include')
         self.exclude_columns = self.config_handler.parse_config_list('Columns', 'exclude')
-        self.row_header = self.config_handler.parse_config_list('Header', 'row')
+        self.row_header = self.config_handler.get('Header', 'row')
         
         self.version = __version__
 
@@ -56,7 +56,7 @@ class QRCodeBatchProcessor:
         if not self.row_header:
             return None
         try:
-            return int(self.row_header[0])
+            return int(self.row_header)
         except ValueError:
             logging.error("Invalid row header value: %s", self.row_header)
             raise QRBatchProcessingError(f"Invalid row header: {self.row_header} is not an integer.")
@@ -69,7 +69,7 @@ class QRCodeBatchProcessor:
             df = self.data_processor.filter_columns(df, self.include_columns, self.exclude_columns)
             logging.info("Columns after filtering: %s", df.columns.tolist())
 
-            sheet_folder = os.path.join(self.output_folder, sheet_name)
+            sheet_folder = os.path.join(self.output_folder, sheet_name.strip())
             self.file_handler.ensure_directory(sheet_folder)
 
             for index, row in df.iterrows():
@@ -82,7 +82,6 @@ class QRCodeBatchProcessor:
     def _process_row(self, row: pd.Series, index: int, sheet_name: str, sheet_folder: str) -> None:
         try:
             item_index = self.file_handler.clean_filename(str(row.iloc[0]))
-            item_name = self.file_handler.clean_filename(str(row.iloc[2]))
             item_identifier = self.file_handler.clean_filename(str(row.iloc[5]))
             
             if pd.isna(item_index) or item_index.lower() == 'nan':

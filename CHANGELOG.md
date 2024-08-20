@@ -5,6 +5,17 @@
 本文件格式基於 [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)，
 並且本項目遵循 [語義化版本](https://semver.org/spec/v2.0.0.html)。
 
+## [v1.0.8]
+
+### 新增
+- Add Base confighandler
+- Create factory pattern
+- Create ini and json configure class. 
+
+### 變更
+- Changed config file to json. 
+- Refactor config_handler.py
+
 ## [v1.0.7]
 
 ### 變更

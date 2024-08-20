@@ -5,7 +5,7 @@
 ```
 your_project/
 ├── config/
-│   └── custom_config.ini
+│   └── custom_config.json
 │
 ├── qr_codes/
 │
@@ -46,37 +46,34 @@ your_project/
 
 ## 設定
 
-`custom_config.ini` 文件。範例內容如下：
+`custom_config.json` 文件。範例內容如下：
 
-```ini
-[Header]
-# 要抓取得 Header 在第幾個列？（第一列是 0, 第二列是 1，依此列推...）
-row = 
-    1
-
-[Sheets]
-process = 
-    Sheet1
-    Sheet2
-    Sheet3
-
-[Columns]
-# 使用 include 來指定要包含的列。如果為空，則包含所有列。
-# 每行一個列名
-include = 
-    項目\n編號
-    購買日期
-    型號/規格/名稱及說明
-    單位
-    數量
-    存放位置
-    財產編號\n設備編號
-    備註
-
-# 使用 exclude 來指定要排除的列。只有在 include 為空時才會生效。
-# 每行一個列名
-exclude = 
-    圖片
+```json
+{
+    "Header": {
+      "row": 1
+    },
+    "Sheets": {
+      "process": [
+        "C小樹(雜物&設備) "
+      ]
+    },
+    "Columns": {
+      "include": [
+        "項目    編號",
+        "購買日期",
+        "型號/規格/名稱及說明",
+        "單位",
+        "數量",
+        "存放位置",
+        "財產編號\n設備編號",
+        "備註"
+      ],
+      "exclude": [
+        "圖片"
+      ]
+    }
+  }
 ```
 
 ## 使用方法
@@ -96,7 +93,7 @@ python run.py -d resources/data.xlsx
 
 ### 指定自定義設定檔：
 ```
-python run.py -c config/custom_config.ini
+python run.py -c config/custom_config.json
 ```
 
 ### 指定自定義輸出資料夾：
@@ -107,7 +104,7 @@ python run.py -o qr_codes
 
 ### 完整範例（包含所有選項）：
 ```
-python run.py -d resources/data.xlsx -c config/custom_config.ini -o qr_codes
+python run.py -d resources/data.xlsx -c config/custom_config.json -o qr_codes
 ```
 這個命令將使用自定義的 Excel 文件和配置文件，並將輸出保存到指定的 `qr_codes` 目錄。
 

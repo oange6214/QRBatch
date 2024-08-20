@@ -15,7 +15,7 @@ def main():
     parser = argparse.ArgumentParser(description=f"QRBatch v{__version__} - Generate QR codes from Excel data")
     parser.add_argument("-d", "--data", default="resources/data.xlsx", help="Path to the input Excel file")
     parser.add_argument("-o", "--output", default="qr_codes", help="Output folder for QR codes")
-    parser.add_argument("-c", "--config", default=os.path.join("config", "custom_config.ini"), help="Path to the configuration file")
+    parser.add_argument("-c", "--config", default=os.path.join("config", "custom_config.json"), help="Path to the configuration file")
     
     args = parser.parse_args()
     
