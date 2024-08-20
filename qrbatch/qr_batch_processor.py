@@ -81,17 +81,21 @@ class QRCodeBatchProcessor:
 
     def _process_row(self, row: pd.Series, index: int, sheet_name: str, sheet_folder: str) -> None:
         try:
-            item_identifier = self.file_handler.clean_filename(str(row.iloc[0]))
+            item_index = self.file_handler.clean_filename(str(row.iloc[0]))
+            item_name = self.file_handler.clean_filename(str(row.iloc[2]))
+            item_identifier = self.file_handler.clean_filename(str(row.iloc[5]))
             
-            if pd.isna(item_identifier) or item_identifier.lower() == 'nan':
+            if pd.isna(item_index) or item_index.lower() == 'nan':
                 logging.warning("Skipped row at index %d due to NaN identifier.", index)
                 return
             
+            item_index = int(item_index.split('.')[0])
+            
             formatted_data = self.data_processor.format_data(row)
-            qr_filename = os.path.join(sheet_folder, f"qr_{sheet_name}_item_{index}.png")
+            qr_filename = os.path.join(sheet_folder, f"f{item_index:04d}_{item_identifier}.png")
             self.qr_generator.generate_qr_code(formatted_data, qr_filename)
             logging.info("Generated QR code: %s", qr_filename)
             
         except Exception as e:
-            logging.error("Error processing row at index %d in sheet '%s': %s", index, sheet_name, str(e))
-            raise QRGenerationError(f"Failed to process row at index {index} in sheet '{sheet_name}'", original_exception=e)
+            logging.error("Error processing row at index %d in sheet '%s': %s", item_index, sheet_name, str(e))
+            raise QRGenerationError(f"Failed to process row at index {item_index} in sheet '{sheet_name}'", original_exception=e)
