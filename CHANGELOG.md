@@ -5,6 +5,16 @@
 本文件格式基於 [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)，
 並且本項目遵循 [語義化版本](https://semver.org/spec/v2.0.0.html)。
 
+## [v1.0.9]
+
+### 變更
+- Refactor main.py, split setup_dependencies and process instance. 
+- Refactor qr_batch_processor.py, create _load_conifg and use dictionary. 
+- Refactor config_handler.py, Edit function name to ConfigHandlerFactory, and add try...catch
+- Refactor data_processor.py, Split filter_columns to _include and _exclude function. Add sample.
+- Refactor file_handler.py, Add summary. Add sample.
+- Refactor qr_generator.py, Add logo and byte function, Add summary. Add sample.
+
 ## [v1.0.8]
 
 ### 新增
